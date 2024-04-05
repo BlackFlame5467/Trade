@@ -1,0 +1,16 @@
+@import '../../../variables';
+
+.link {
+	@apply flex items-center gap-2 text-colorMain px-3 py-2 mx-2 transition-all rounded-lg hover:text-colorWhite hover:bg-bgHover;
+
+	&__active {
+		@apply text-colorWhite bg-bgActive;
+	}
+
+	&__dot {
+		width: 7.5px;
+		height: 7.5px;
+		border-radius: 50%;
+		background: $bg-purple;
+	}
+}

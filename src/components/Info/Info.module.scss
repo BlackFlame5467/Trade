@@ -1,0 +1,50 @@
+@import '../../variables';
+
+.info {
+	&__header {
+		@apply flex items-center;
+		border-bottom: 1px solid $bg-line;
+	}
+	&__coin {
+		@apply flex justify-between w-80 transition-all;
+		&:hover {
+			background: lighten($color: $bg-main, $amount: 1%);
+			color: $color-accent;
+		}
+	}
+	&__coinName {
+		@apply flex items-center gap-2 text-colorAccent px-6 py-4;
+		> img {
+			width: 25px;
+		}
+	}
+	&__details {
+		@apply flex items-center;
+	}
+	&__price {
+		@apply text-xl text-colorWhite px-4;
+	}
+	&__block {
+		@apply px-4;
+	}
+	&__interest {
+		> .info__count {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			&::after {
+				content: 'ETH';
+				color: $color-white;
+				background: $bg-hover;
+				padding: 2px 4px;
+				border-radius: 4px;
+			}
+		}
+	}
+	&__title {
+		@apply text-xs;
+	}
+	&__count {
+		@apply text-xs text-colorWhite;
+	}
+}

@@ -1,0 +1,13 @@
+@import '../../../variables';
+
+.button {
+	@apply px-5 py-3;
+	border-right: 1px solid $bg-line;
+
+	&__active {
+		@apply bg-bgActive text-colorWhite;
+	}
+	&__big {
+		@apply px-8;
+	}
+}

@@ -1,0 +1,23 @@
+@import '../../../variables';
+
+.input {
+	@apply bg-bgLight rounded-lg p-2;
+	border: 1px solid $bg-line;
+	&__info {
+		@apply flex gap-2 items-center;
+	}
+	&__title {
+		@apply text-colorAccent text-xs;
+		border-bottom: 1px dashed $color-accent;
+	}
+	&__currency {
+		@apply text-colorWhite  p-1 rounded-md text-xs;
+		background: lighten($color: $bg-light, $amount: 5%);
+	}
+	&__input {
+		@apply bg-transparent text-colorWhite w-full;
+		&:focus {
+			outline: none;
+		}
+	}
+}

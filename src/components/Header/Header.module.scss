@@ -1,0 +1,73 @@
+@import '../../variables';
+
+.header {
+	@apply flex justify-between items-center text-colorWhite;
+	border-bottom: 1px solid $bg-line;
+
+	&__nav {
+		@apply flex items-center;
+	}
+
+	&__logo {
+		@apply p-4;
+		> svg {
+			width: 25px;
+			height: 25px;
+		}
+	}
+
+	&__selects {
+		@apply flex items-center;
+		position: relative;
+	}
+
+	&__list {
+		@apply flex items-center;
+	}
+	&__assist {
+		@apply flex items-center gap-2 p-3;
+	}
+	&__btn {
+		@apply p-2 rounded-lg transition-all hover:bg-bgHover;
+	}
+	&__help {
+		> svg {
+			> path {
+				@apply transition-all;
+			}
+		}
+
+		&:hover {
+			> svg {
+				> path {
+					fill: $color-white;
+				}
+				> rect {
+					stroke: $color-white;
+				}
+			}
+		}
+	}
+	&__notification {
+		> svg {
+			> path {
+				@apply transition-all;
+			}
+		}
+
+		&:hover {
+			> svg {
+				> path {
+					stroke: $color-white;
+				}
+			}
+		}
+	}
+	&__wallet {
+		@apply text-colorWhite transition-all bg-bgPurple text-xs p-2 rounded-lg;
+		border: 1px solid $border-purple;
+		&:hover {
+			background-color: lighten($color: $bg-purple, $amount: 2%);
+		}
+	}
+}

@@ -1,0 +1,71 @@
+@import '../../variables';
+.orders {
+	&__header {
+		@apply flex items-center justify-between;
+		border-top: 1px solid $bg-line;
+		border-bottom: 1px solid $bg-line;
+	}
+	&__wrapper {
+		@apply flex items-center gap-2 pr-4;
+	}
+	&__coin {
+		@apply flex items-center bg-bgAccent py-1 px-2 gap-1 rounded-2xl text-colorWhite text-sm;
+		border: 1px solid $bg-line;
+	}
+	&__coinImg {
+		width: 20px;
+	}
+	&__link {
+		@apply px-2  py-1 rounded-full transition-all;
+		border: 1px solid $bg-line;
+
+		&:hover {
+			background-color: lighten($color: $bg-main, $amount: 2%);
+
+			> svg {
+				> path {
+					fill: lighten($color: $color-main, $amount: 2%);
+				}
+			}
+		}
+		&:last-child {
+			@apply py-3;
+		}
+	}
+	&__position {
+		@apply flex gap-12 justify-center py-9;
+	}
+	&__info {
+		@apply w-80 flex flex-col gap-7;
+	}
+	&__infoContainer {
+		@apply flex justify-between w-72;
+	}
+	&__container {
+		@apply h-20 flex flex-col justify-center pl-5 rounded-xl;
+		background: linear-gradient(130.25deg, #2f2f42 0.9%, transparent 64.47%),
+			linear-gradient(227.14deg, #242431 1.6%, transparent 63.87%), #29293a;
+	}
+	&__containerName {
+		@apply bg-bgMain rounded-md py-1 px-2 text-xs text-colorWhite inline;
+	}
+	&__infoWrapper {
+		@apply flex flex-col gap-7 text-left items-stretch;
+	}
+	&__title {
+		@apply mb-2 text-xs;
+		border-bottom: 1px dashed $color-main;
+	}
+	&__details {
+		@apply w-80;
+	}
+	&__detailsBlock {
+		@apply flex justify-between items-center py-2;
+		&:not(:last-child) {
+			border-bottom: 1px solid $bg-line;
+		}
+	}
+	&__name {
+		@apply text-xs;
+	}
+}

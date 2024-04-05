@@ -1,0 +1,29 @@
+@import '../../variables';
+.graph {
+	border-right: 1px solid $bg-line;
+	border-bottom: 1px solid $bg-line;
+	&__header {
+		@apply flex items-center justify-between;
+		border-bottom: 1px solid $bg-line;
+	}
+	&__wrapper {
+		@apply flex items-center gap-2 pr-4;
+	}
+	&__link {
+		@apply p-2 rounded-full transition-all;
+		border: 1px solid $bg-line;
+
+		&:hover {
+			background-color: lighten($color: $bg-main, $amount: 2%);
+
+			> svg {
+				> path {
+					fill: lighten($color: $color-accent, $amount: 2%);
+				}
+			}
+		}
+	}
+	&__chart {
+		height: 400px;
+	}
+}

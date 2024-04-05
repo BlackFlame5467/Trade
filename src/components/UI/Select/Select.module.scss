@@ -1,0 +1,54 @@
+@import '../../../variables';
+
+.select {
+	@apply flex items-center justify-between  px-4 py-2 mx-2 rounded-lg gap-x-5 w-32 relative text-colorMain transition-all hover:text-colorWhite hover:bg-bgHover;
+
+	&:hover {
+		> .select__arrow {
+			> svg {
+				> path {
+					fill: $color-white;
+				}
+			}
+		}
+	}
+
+	&__text {
+		@apply text-center w-20;
+	}
+
+	&__arrow {
+		> svg {
+			width: 5px;
+			height: 5px;
+
+			> path {
+				@apply transition-all;
+			}
+		}
+	}
+
+	&__small {
+		@apply w-20 gap-x-2;
+	}
+
+	&__disableHover {
+		&:hover {
+			color: $color-main;
+			background: transparent;
+			> .select__arrow {
+				> svg {
+					> path {
+						fill: $color-main;
+					}
+				}
+			}
+		}
+	}
+	&__info {
+		@apply w-32 gap-0;
+	}
+	&__infoText {
+		@apply text-sm;
+	}
+}
