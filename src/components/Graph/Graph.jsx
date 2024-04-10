@@ -27,6 +27,8 @@ const Graph = () => {
 			isActive: false
 		}
 	]
+	console.log(document.querySelector('.tradingview-widget-container'))
+	console.log(document.querySelector('.tradingview-widget-container'))
 
 	return (
 		<section className={style.graph}>

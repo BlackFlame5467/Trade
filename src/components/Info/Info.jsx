@@ -6,6 +6,7 @@ import Select from '../UI/Select/Select'
 import Vertical from '../UI/Vertical/Vertical'
 
 const Info = () => {
+	console.log(document.querySelectorAll('.chart__container').target)
 	return (
 		<header className={style.info__header}>
 			<div className={style.info__coin}>

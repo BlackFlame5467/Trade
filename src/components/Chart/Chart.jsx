@@ -1,118 +1,59 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { createChart } from 'lightweight-charts'
+import React, { memo, useEffect, useRef } from 'react'
+import './Chart.module.scss'
 
-const Chart = () => {
-	const chartContainerRef = useRef() // Блок графика
-	// Можно делать только 800 запросов в день
-	const url =
-		'https://twelve-data1.p.rapidapi.com/time_series?symbol=ETH%2FUSD&interval=1day&outputsize=700&format=json' // Получаем ETH/USD, 1day, 700 обьектов
-
-	const [chartData, setChartData] = useState([]) // Для заполнения массива данными
+function TradingViewWidget() {
+	const container = useRef()
 
 	useEffect(() => {
-		const fetchData = async () => {
-			// Получение данных
-			try {
-				const options = {
-					method: 'GET',
-					headers: {
-						'X-RapidAPI-Key':
-							'8601b70ce5mshef8601608859484p195e7djsnbcbbb559f2d4',
-						'X-RapidAPI-Host': 'twelve-data1.p.rapidapi.com'
-					}
+		const script = document.createElement('script')
+		script.src =
+			'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js'
+		script.type = 'text/javascript'
+		script.async = true
+		script.innerHTML = `
+			{
+				"width": "1550",
+				"height": "450",
+				"symbol": "BINANCE:ETHUSD",
+				"interval": "5",
+				"timezone": "Etc/UTC",
+				"theme": "dark",
+				"style": "1",
+				"locale": "en",
+				"enable_publishing": false,
+				"allow_symbol_change": true,
+				"calendar": false,
+				"support_host": "https://www.tradingview.com"
+		}`
+		script.onload = () => {
+			const iframes = container.current.querySelectorAll('iframe')
+			if (iframes.length > 0) {
+				iframes[0].onload = () => {
+					console.log('Данные загружены в iframe')
+					const frame = iframes[0]
+					console.log(frame)
+					console.log(frame.contentWindow.document.body)
 				}
-
-				const response = await fetch(url, options)
-				const data = await response.json()
-
-				const reversedData = data.values // Запись всех обьектов из массива
-					.map(item => ({
-						time: item.datetime,
-						open: +item.open,
-						high: +item.high,
-						low: +item.low,
-						close: +item.close
-					}))
-					.reverse()
-
-				setChartData(reversedData) // Вписываем в пустой массив данные
-			} catch (error) {
-				console.error('Error fetching data:', error)
-				setChartData([]) // При ошибке возвращаем пустой массив
 			}
 		}
-
-		fetchData() // Первый запрос
-
-		const intervalId = setInterval(fetchData, 60000) // Запрос каждые 60 секунд
-
-		return () => clearInterval(intervalId) // Очистка интервала
-	}, [url])
-
-	useEffect(() => {
-		if (chartData.length > 0) {
-			const chart = createChart(chartContainerRef.current, {
-				// Базовые настройки графика
-				layout: {
-					background: {
-						color: '#181825'
-					},
-					textColor: '#DDD'
-				},
-				grid: {
-					vertLines: {
-						color: '#303045'
-					},
-					horzLines: {
-						color: '#303045'
-					}
-				},
-				width: chartContainerRef.current.clientWidth,
-				height: 345
-			})
-
-			chart.timeScale().applyOptions({
-				// Настройка шкалы времени
-				rightOffset: 20,
-				timeVisible: true
-			})
-
-			chart.timeScale().fitContent() // Автоматически рассчитывает видимый диапазон
-
-			const newSeries = chart.addCandlestickSeries({
-				// Настройка типа и цвета графика
-				upColor: '#65D5A3',
-				downColor: '#D86058',
-				borderVisible: false,
-				wickUpColor: '#65D5A3',
-				wickDownColor: '#D86058'
-			})
-
-			newSeries.setData(chartData) // Берем данные из массива
-
-			chart.timeScale().setVisibleLogicalRange({
-				// Показываем только первые 75 элемента
-				from: chartData.length - 75,
-				to: chartData.length
-			})
-
-			const handleResize = () => {
-				// Автоматическое уменьшение графика при уменьшении окна браузера
-				chart.applyOptions({
-					width: chartContainerRef.current.clientWidth
-				})
-			}
-
-			window.addEventListener('resize', handleResize)
-
-			return () => {
-				chart.remove() // Удаляем лишний график
-				window.removeEventListener('resize', handleResize)
-			}
+		return async () => {
+			container.current.appendChild(script)
 		}
-	}, [chartData])
-
-	return <div ref={chartContainerRef} style={{ height: 345 + 'px' }}></div> // График
+	}, [])
+	return (
+		<div className='chart__container'>
+			<div
+				className='tradingview-widget-container'
+				ref={container}
+				style={{ height: '450px', width: '100%' }}
+			>
+				<div
+					className='tradingview-widget-container__widget'
+					style={{ height: '420px', width: '100%' }}
+				></div>
+			</div>
+		</div>
+	)
 }
 
-export default Chart
+export default memo(TradingViewWidget)
